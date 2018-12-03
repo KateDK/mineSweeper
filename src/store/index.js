@@ -1,9 +1,10 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { createLogger } from 'redux-logger';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import appReducer from './appReducer';
 
-const reducer = combineReducers({ appReducer });
+import game from './game';
+
+const reducer = combineReducers({ game });
 
 const middleware = composeWithDevTools(
   applyMiddleware(createLogger({ collapsed: true }))
@@ -12,4 +13,4 @@ const middleware = composeWithDevTools(
 const store = createStore(reducer, middleware);
 
 export default store;
-export * from './appReducer';
+export * from './game';

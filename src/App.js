@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import DemoComponent from './DemoComponent';
+import { Game } from './components';
 
 class App extends Component {
   render() {
@@ -22,6 +23,7 @@ class App extends Component {
           </a>
         </header>
         <DemoComponent />
+        <Game />
       </div>
     );
   }
