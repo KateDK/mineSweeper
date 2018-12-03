@@ -45,3 +45,7 @@
   height: 30px;
   border: 1px solid black;
 }
+
+.open {
+  background-color: rgb(192, 186, 186);
+}

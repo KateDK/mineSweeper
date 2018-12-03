@@ -2,12 +2,27 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { clickCell } from '../store';
 
+const insideCell = cell => {
+  if (cell.isOpen) {
+    if (cell.isMine) {
+      return 'X';
+    }
+    if (cell.closeMines > 0) {
+      return cell.closeMines;
+    }
+  }
+};
+
 const Cell = props => {
   const cell = props.cell;
   const clickCell = props.clickCell;
+  console.log(cell);
   return (
-    <div className="cell" onClick={() => clickCell(cell.row, cell.col)}>
-      {cell.isMine ? 'X' : cell.closeMines}
+    <div
+      className={cell.isOpen ? 'cell open' : 'cell'}
+      onClick={() => clickCell(cell.row, cell.col)}
+    >
+      {insideCell(cell)}
     </div>
   );
 };

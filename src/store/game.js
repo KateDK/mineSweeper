@@ -92,6 +92,7 @@ export default function(state = initialState, action) {
         game.gameOver = true;
       } else {
         //1: openCell function takes gameObj row, col
+        openCell(game, row, col);
         //2: check if won
       }
       return game;
@@ -138,4 +139,27 @@ const openMines = (grid, mines) => {
   mines.forEach(mine => {
     grid[mine.row][mine.col].isOpen = true;
   });
+};
+
+const openCell = (game, row, col) => {
+  const grid = game.grid;
+
+  if (row >= 0 && col >= 0 && row < grid.length && col < grid[0].length) {
+    if (grid[row][col].isOpen) {
+      return;
+    }
+    grid[row][col].isOpen = true;
+    game.openCells++;
+    if (grid[row][col].closeMines === 0) {
+      openCell(game, row - 1, col - 1);
+      openCell(game, row - 1, col);
+      openCell(game, row - 1, col + 1);
+      openCell(game, row, col - 1);
+      // no openCell(game,row,col);
+      openCell(game, row, col + 1);
+      openCell(game, row + 1, col - 1);
+      openCell(game, row + 1, col);
+      openCell(game, row + 1, col + 1);
+    }
+  }
 };
