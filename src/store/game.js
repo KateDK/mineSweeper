@@ -88,6 +88,7 @@ export default function(state = initialState, action) {
       let cell = game.grid[row][col];
       if (cell.isMine) {
         //loop over mines array and open them
+        openMines(game.grid, game.mines);
         game.gameOver = true;
       } else {
         //1: openCell function takes gameObj row, col
@@ -131,4 +132,10 @@ const updateCell = (grid, row, col) => {
   if (row >= 0 && col >= 0 && row < grid.length && col < grid[0].length) {
     grid[row][col].closeMines++;
   }
+};
+
+const openMines = (grid, mines) => {
+  mines.forEach(mine => {
+    grid[mine.row][mine.col].isOpen = true;
+  });
 };
