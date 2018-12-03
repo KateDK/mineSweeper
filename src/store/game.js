@@ -42,6 +42,7 @@ const initialState = {
   gameOver: false,
   openCells: 0,
   dificulty: easy,
+  mines: [],
 };
 
 /**
@@ -56,7 +57,12 @@ export const initiateGame = dificulty => ({ type: INITIATE_GAME, dificulty });
 export default function(state = initialState, action) {
   switch (action.type) {
     case INITIATE_GAME: {
-      let game = { ...initialState, dificulty: action.dificulty, grid: [] };
+      let game = {
+        ...initialState,
+        dificulty: action.dificulty,
+        grid: [],
+        mines: [],
+      };
       const rows = game.dificulty.rows;
       const cols = game.dificulty.cols;
 
@@ -67,9 +73,25 @@ export default function(state = initialState, action) {
         }
         game.grid.push(currentRow);
       }
+      placeMines(game.grid, game.dificulty, game.mines);
       return game;
     }
     default:
       return state;
   }
 }
+
+const placeMines = (grid, dificulty, mines) => {
+  let numMines = dificulty.mines;
+  while (numMines > 0) {
+    let row = Math.floor(Math.random() * grid.length);
+    let col = Math.floor(Math.random() * grid[0].length);
+    let currentCell = grid[row][col];
+    if (!currentCell.isMine) {
+      currentCell.isMine = true;
+      mines.push({ row, col });
+      //update close cells
+      numMines--;
+    }
+  }
+};
