@@ -16,7 +16,7 @@ const insideCell = cell => {
 const Cell = props => {
   const cell = props.cell;
   const clickCell = props.clickCell;
-  console.log(cell);
+
   return (
     <div
       className={cell.isOpen ? 'cell open' : 'cell'}
