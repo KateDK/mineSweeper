@@ -90,8 +90,26 @@ const placeMines = (grid, dificulty, mines) => {
     if (!currentCell.isMine) {
       currentCell.isMine = true;
       mines.push({ row, col });
-      //update close cells
+      updateCloseCells(grid, row, col);
       numMines--;
     }
+  }
+};
+
+const updateCloseCells = (grid, row, col) => {
+  updateCell(grid, row - 1, col - 1);
+  updateCell(grid, row - 1, col);
+  updateCell(grid, row - 1, col + 1);
+  updateCell(grid, row, col - 1);
+  // no updateCell(grid,row,col);
+  updateCell(grid, row, col + 1);
+  updateCell(grid, row + 1, col - 1);
+  updateCell(grid, row + 1, col);
+  updateCell(grid, row + 1, col + 1);
+};
+
+const updateCell = (grid, row, col) => {
+  if (row >= 0 && col >= 0 && row < grid.length && col < grid[0].length) {
+    grid[row][col].closeMines++;
   }
 };
