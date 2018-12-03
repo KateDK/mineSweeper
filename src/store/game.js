@@ -94,6 +94,12 @@ export default function(state = initialState, action) {
         //1: openCell function takes gameObj row, col
         openCell(game, row, col);
         //2: check if won
+        if (
+          game.openCells + game.mines.length ===
+          game.grid.length * game.grid[0].length
+        ) {
+          game.gameWon = true;
+        }
       }
       return game;
     }
