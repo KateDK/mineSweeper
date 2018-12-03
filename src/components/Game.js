@@ -12,7 +12,7 @@ class Game extends Component {
     return (
       <div>
         {grid.map(row => (
-          <Row />
+          <Row row={row} />
         ))}
       </div>
     );
