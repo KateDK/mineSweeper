@@ -56,7 +56,7 @@ export const initiateGame = dificulty => ({ type: INITIATE_GAME, dificulty });
 export default function(state = initialState, action) {
   switch (action.type) {
     case INITIATE_GAME: {
-      let game = { ...initialState, dificulty: action.dificulty };
+      let game = { ...initialState, dificulty: action.dificulty, grid: [] };
       const rows = game.dificulty.rows;
       const cols = game.dificulty.cols;
 
