@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 const easy = {
   rows: 10,
   cols: 10,
@@ -20,6 +22,8 @@ const cell = {
   isMine: false,
   isOpen: false,
   closeMines: 0,
+  row: 0,
+  col: 0,
 };
 export const dificulties = {
   easy,
@@ -32,6 +36,7 @@ export const dificulties = {
  */
 
 const INITIATE_GAME = 'INITIATE_GAME';
+const CLICK_CELL = 'CLICK_CELL';
 
 /**
  * INITIAL STATE
@@ -48,8 +53,8 @@ const initialState = {
 /**
  * ACTION CREATORS
  */
-export const getState = () => ({ type: INITIATE_GAME, toAdd: '!' });
 export const initiateGame = dificulty => ({ type: INITIATE_GAME, dificulty });
+export const clickCell = (row, col) => ({ type: CLICK_CELL, row, col });
 
 /**
  * REDUCER
@@ -69,11 +74,25 @@ export default function(state = initialState, action) {
       for (let row = 0; row < rows; row++) {
         let currentRow = [];
         for (let col = 0; col < cols; col++) {
-          currentRow.push({ ...cell });
+          currentRow.push({ ...cell, row, col });
         }
         game.grid.push(currentRow);
       }
       placeMines(game.grid, game.dificulty, game.mines);
+      return game;
+    }
+    case CLICK_CELL: {
+      let game = _.cloneDeep(state);
+      let row = action.row;
+      let col = action.col;
+      let cell = game.grid[row][col];
+      if (cell.isMine) {
+        //loop over mines array and open them
+        game.gameOver = true;
+      } else {
+        //1: openCell function takes gameObj row, col
+        //2: check if won
+      }
       return game;
     }
     default:

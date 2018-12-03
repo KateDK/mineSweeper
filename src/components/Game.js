@@ -8,9 +8,11 @@ class Game extends Component {
     this.props.initiateGame(dificulties.easy);
   }
   render() {
-    const grid = this.props.grid;
+    const { grid, gameOver, gameWon } = this.props;
     return (
       <div>
+        {gameOver ? <h1>Game Over, You Lose!</h1> : null}
+        {gameWon ? <h1>Good Job, You Win!</h1> : null}
         {grid.map(row => (
           <Row row={row} />
         ))}
@@ -22,6 +24,8 @@ class Game extends Component {
 const mapState = state => {
   return {
     grid: state.game.grid,
+    gameOver: state.game.gameOver,
+    gameWon: state.game.gameWon,
   };
 };
 
